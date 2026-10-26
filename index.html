@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LabStock – Electronics Lab Inventory</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>LabStock <small>Electronics Lab Inventory &amp; Equipment Tracking</small></h1>
+  <nav id="nav">
+    <button data-page="dashboard" class="active">Dashboard</button>
+    <button data-page="inventory">Inventory</button>
+    <button data-page="issue">Issue / Return</button>
+    <button data-page="history">History</button>
+    <button data-page="alerts">Alerts</button>
+  </nav>
+</header>
+<p class="banner">Demonstration data only – not actual RRU laboratory inventory. Data is saved in this browser (LocalStorage), not a shared database.</p>
+
+<main>
+<!-- DASHBOARD -->
+<section id="dashboard" class="page">
+  <div class="cards" id="cards"></div>
+  <h2>Recent transactions</h2>
+  <div class="tablewrap"><table id="recentTable"></table></div>
+</section>
+
+<!-- INVENTORY -->
+<section id="inventory" class="page" hidden>
+  <div class="toolbar">
+    <input id="invSearch" type="search" placeholder="Search name, model, category, ID…" aria-label="Search inventory">
+    <select id="invCat" aria-label="Category filter"></select>
+    <select id="invStatus" aria-label="Stock status filter">
+      <option value="">All stock levels</option><option value="ok">In stock</option>
+      <option value="low">Low stock</option><option value="out">Out of stock</option>
+    </select>
+    <button class="primary" id="addBtn">+ Add item</button>
+    <button id="exportInv">Export CSV</button>
+  </div>
+  <div class="tablewrap"><table id="invTable"></table></div>
+  <p class="empty" id="invEmpty" hidden>No items match your search.</p>
+</section>
+
+<!-- ISSUE / RETURN -->
+<section id="issue" class="page" hidden>
+  <div class="two">
+    <form id="issueForm" novalidate>
+      <h2>Issue equipment</h2>
+      <label>Student name or ID <input id="isStudent" required maxlength="40"></label>
+      <label>Item <select id="isItem" required></select></label>
+      <label>Quantity <input id="isQty" type="number" min="1" step="1" value="1" required></label>
+      <label>Handling mode
+        <select id="isMode">
+          <option value="track">Reusable – track return</option>
+          <option value="consume">Consumable – permanently consumed</option>
+        </select></label>
+      <label>Issue date <input id="isDate" type="date" required></label>
+      <label id="dueLabel">Expected return date <input id="isDue" type="date"></label>
+      <label>Remarks (optional) <input id="isRemarks" maxlength="100"></label>
+      <button class="primary">Issue</button>
+    </form>
+    <form id="returnForm" novalidate>
+      <h2>Return equipment</h2>
+      <label>Outstanding issue <select id="rtTx" required></select></label>
+      <label>Quantity returned <input id="rtQty" type="number" min="1" step="1" value="1" required></label>
+      <label>Remarks (optional) <input id="rtRemarks" maxlength="100"></label>
+      <button class="primary">Record return</button>
+      <p class="hint">Partial returns are allowed. You cannot return more than is still outstanding.</p>
+    </form>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="page" hidden>
+  <div class="toolbar">
+    <input id="hSearch" type="search" placeholder="Search student, item, ID…" aria-label="Search history">
+    <select id="hType" aria-label="Type filter">
+      <option value="">All types</option><option>Issue</option><option>Return</option><option>Consumed</option>
+    </select>
+    <input id="hDate" type="date" aria-label="Date filter">
+    <button id="exportTx">Export CSV</button>
+  </div>
+  <div class="tablewrap"><table id="histTable"></table></div>
+  <p class="empty" id="histEmpty" hidden>No transactions match.</p>
+</section>
+
+<!-- ALERTS -->
+<section id="alerts" class="page" hidden>
+  <h2>Low &amp; out-of-stock items</h2>
+  <div class="tablewrap"><table id="lowTable"></table></div>
+  <h2>Overdue returns</h2>
+  <div class="tablewrap"><table id="overTable"></table></div>
+  <h2>Demo data</h2>
+  <button class="danger" id="resetBtn">Reset demo data…</button>
+</section>
+</main>
+
+<!-- ADD / EDIT DIALOG -->
+<dialog id="itemDlg">
+  <form id="itemForm" novalidate>
+    <h2 id="dlgTitle">Add item</h2>
+    <label>Item ID <input id="fId" required maxlength="12"></label>
+    <label>Item name <input id="fName" required maxlength="60"></label>
+    <label>Part number / model <input id="fModel" maxlength="40"></label>
+    <label>Category <select id="fCat"></select></label>
+    <label>Unit <input id="fUnit" value="pcs" maxlength="10"></label>
+    <label>Total quantity <input id="fTotal" type="number" min="0" step="1" required></label>
+    <label>Minimum stock threshold <input id="fMin" type="number" min="0" step="1" required></label>
+    <label>Storage location <input id="fLoc" maxlength="40"></label>
+    <label>Type <select id="fType"><option>Reusable</option><option>Consumable</option></select></label>
+    <p class="err" id="fErr" role="alert"></p>
+    <div class="row"><button type="button" id="fCancel">Cancel</button><button class="primary">Save</button></div>
+  </form>
+</dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

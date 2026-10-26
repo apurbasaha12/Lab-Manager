@@ -1,0 +1,42 @@
+/* LabStock styles – navy / white / light grey with restrained accents */
+:root{--navy:#0b2545;--blue:#1f6fb2;--green:#2e8b57;--grey:#f1f4f8;--line:#d5dce6;--red:#c0392b;--amber:#b7791f}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--grey);color:#1c2733}
+header{background:var(--navy);color:#fff;padding:.8rem 1rem}
+header h1{margin:0 0 .5rem;font-size:1.4rem}
+header small{font-weight:400;font-size:.8rem;opacity:.75;display:block}
+nav{display:flex;gap:.3rem;flex-wrap:wrap}
+nav button{background:transparent;color:#fff;border:1px solid transparent;padding:.45rem .8rem;border-radius:6px;cursor:pointer}
+nav button.active,nav button:hover{background:var(--blue)}
+.banner{margin:0;background:#fff8e1;color:#6b5200;padding:.4rem 1rem;font-size:.82rem;border-bottom:1px solid #f0e0a0}
+main{padding:1rem;max-width:1200px;margin:auto}
+h2{color:var(--navy);font-size:1.1rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem}
+.card{background:#fff;border-left:4px solid var(--blue);border-radius:8px;padding:.8rem;box-shadow:0 1px 3px #0001}
+.card b{display:block;font-size:1.8rem;color:var(--navy)}
+.card.warn{border-color:var(--amber)}.card.bad{border-color:var(--red)}.card.good{border-color:var(--green)}
+.toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem}
+.toolbar input[type=search]{flex:1;min-width:180px}
+input,select,button{font:inherit;padding:.45rem .6rem;border:1px solid var(--line);border-radius:6px;background:#fff}
+button{cursor:pointer}
+button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+button.danger{background:var(--red);color:#fff;border-color:var(--red)}
+button.small{padding:.2rem .5rem;font-size:.8rem}
+.tablewrap{overflow-x:auto;background:#fff;border-radius:8px;box-shadow:0 1px 3px #0001}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:.5rem .6rem;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--navy);color:#fff}
+.badge{padding:.1rem .5rem;border-radius:10px;font-size:.75rem;color:#fff}
+.badge.ok{background:var(--green)}.badge.low{background:var(--amber)}.badge.out{background:var(--red)}
+.empty,.hint{color:#5b6b7c;text-align:center}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+form{display:flex;flex-direction:column;gap:.6rem}
+#issueForm,#returnForm{background:#fff;padding:1rem;border-radius:8px;box-shadow:0 1px 3px #0001}
+label{display:flex;flex-direction:column;font-size:.85rem;gap:.2rem;font-weight:600}
+dialog{border:none;border-radius:10px;padding:1rem;width:min(420px,94vw)}
+dialog::backdrop{background:#0008}
+.row{display:flex;gap:.5rem;justify-content:flex-end}
+.err{color:var(--red);min-height:1.2em;margin:0;font-size:.85rem}
+#toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);padding:.6rem 1rem;border-radius:8px;color:#fff;background:var(--green);display:none;z-index:9}
+#toast.error{background:var(--red)}
+[hidden]{display:none!important}
